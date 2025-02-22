@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Image Gallery{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Stored Faces</h2>
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for image in images %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ image.image.url }}" class="card-img-top gallery-img" 
+                 alt="Face image for {{ image.person.user.username }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ image.person.user.get_full_name }}</h5>
+                <p class="card-text text-muted">
+                    Uploaded: {{ image.created_at|date:"M d, Y" }}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">No faces in database yet.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Face Images{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="mb-4">Upload Face Image</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">{{ form.person_name.label }}</label>
+                {{ form.person_name }}
+                <div class="form-text">Enter the person's name</div>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">{{ form.image.label }}</label>
+                {{ form.image }}
+                <div class="form-text">Select a clear face image (JPEG, PNG)</div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+
+        {% if form.errors %}
+        <div class="alert alert-danger mt-3">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

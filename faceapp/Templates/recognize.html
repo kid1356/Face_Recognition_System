@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Real-time Recognition{% endblock %}
+
+{% block content %}
+<div class="video-container text-center">
+    <h3 class="mb-3">Real-time Face Recognition</h3>
+    
+    <!-- Start and Stop Buttons -->
+    <button id="start-recognition" class="btn btn-primary">Start Recognizing</button>
+    <button id="stop-recognition" class="btn btn-danger" style="display:none;">Stop Recognizing</button>
+    
+    <!-- Video feed container (initially hidden) -->
+    <div id="video-container" style="display:none; margin-top: 20px;">
+        <img id="video-feed" src="">
+    </div>
+</div>
+
+<div class="mt-3 text-center">
+    <a href="{% url 'gallery' %}" class="btn btn-secondary">View Gallery</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const startBtn = document.getElementById('start-recognition');
+    const stopBtn = document.getElementById('stop-recognition');
+    const videoContainer = document.getElementById('video-container');
+    const videoFeed = document.getElementById('video-feed');
+
+    let recognitionActive = false;
+
+    startBtn.addEventListener('click', function(){
+        if (!recognitionActive) {
+            recognitionActive = true;
+            videoContainer.style.display = 'block';
+            stopBtn.style.display = 'inline-block';
+            startBtn.style.display = 'none';
+            videoFeed.src = "{% url 'video_feed' %}";
+        }
+    });
+
+    stopBtn.addEventListener('click', function(){
+        if (recognitionActive) {
+            recognitionActive = false;
+            // Send stop request
+            fetch("{% url 'stop_recognition' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(() => {
+                videoFeed.src = "";
+                videoContainer.style.display = 'none';
+                stopBtn.style.display = 'none';
+                startBtn.style.display = 'inline-block';
+            });
+        }
+    });
+</script>
+{% endblock %}

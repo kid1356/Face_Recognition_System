@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center">
+    <!-- Hero Section -->
+    <div class="hero-section py-5 mb-5 bg-light rounded-3">
+        <h1 class="display-4 fw-bold">Advanced Face Recognition System</h1>
+        <p class="lead mt-3">Real-Time Face Detection and Recognition with Database Integration</p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="row g-4 mb-5">
+        <!-- Upload Card -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body">
+                    <i class="fas fa-upload fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title">Upload Faces</h3>
+                    <p class="card-text">
+                        Register new faces into the system by uploading images through our secure interface
+                    </p>
+                    <a href="{% url 'upload' %}" class="btn btn-primary">Upload Images</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-Time Recognition Card -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body">
+                    <i class="fas fa-video fa-3x text-success mb-3"></i>
+                    <h3 class="card-title">Real-Time Detection</h3>
+                    <p class="card-text">
+                        Experience live face recognition with our cutting-edge deep learning models
+                    </p>
+                    <a href="{% url 'recognize' %}" class="btn btn-success">Start Recognition</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Gallery Card -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow">
+                <div class="card-body">
+                    <i class="fas fa-database fa-3x text-info mb-3"></i>
+                    <h3 class="card-title">Face Database</h3>
+                    <p class="card-text">
+                        Manage and review stored face data in our organized visual gallery
+                    </p>
+                    <a href="{% url 'gallery' %}" class="btn btn-info">View Gallery</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Features -->
+    <div class="system-features bg-light p-5 rounded-3 mb-5">
+        <h2 class="mb-4">Key Features</h2>
+        <div class="row text-start">
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-bolt me-2 text-warning"></i>
+                        Real-time face detection and recognition
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-brain me-2 text-purple"></i>
+                        Deep learning-powered face embeddings
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-shield-alt me-2 text-success"></i>
+                        Secure database storage
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-users-cog me-2 text-primary"></i>
+                        User-friendly management interface
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-expand-arrows-alt me-2 text-danger"></i>
+                        Responsive web interface
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-history me-2 text-info"></i>
+                        Automatic model retraining
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section mb-5">
+        <h3 class="mb-4">Ready to Get Started?</h3>
+        <p class="lead mb-4">Begin by uploading face images or try real-time recognition</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'upload' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-upload me-2"></i>Upload Images
+            </a>
+            <a href="{% url 'recognize' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-play me-2"></i>Start Recognition
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-purple { color: #6f42c1; }
+    .shadow { box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important; }
+    .card { transition: transform 0.3s; }
+    .card:hover { transform: translateY(-5px); }
+    .hero-section { background: linear-gradient(45deg, #f8f9fa, #e9ecef); }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+{% endblock %}
