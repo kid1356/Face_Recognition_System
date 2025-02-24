@@ -12,10 +12,11 @@
             <img src="{{ image.image.url }}" class="card-img-top gallery-img" 
                  alt="Face image for {{ image.person.user.username }}">
             <div class="card-body">
-                <h5 class="card-title">{{ image.person.user.get_full_name }}</h5>
+                <h5 class="card-title">{{ image.person.name }}</h5>
                 <p class="card-text text-muted">
                     Uploaded: {{ image.created_at|date:"M d, Y" }}
                 </p>
+                <button type="button" class="btn btn-danger delete-btn" data-id="{{image.id}}">Delete</button>
             </div>
         </div>
     </div>
@@ -25,4 +26,33 @@
     </div>
     {% endfor %}
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".btn-danger").forEach(button => {
+            button.addEventListener("click", function () {
+                const imageId = this.getAttribute("data-id");
+                const cardElement = this.closest(".col"); // Get the card container
+    
+                fetch(`/delete-image/${imageId}/`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Server response:", data); // Debugging log
+                    if (data.success === true) {
+                        cardElement.remove(); // Remove the image from UI instantly
+                    } 
+                })
+                .catch(error => console.error("Fetch error:", error));
+            });
+        });
+    });
+    </script>
+    
+    
+    
 {% endblock %}

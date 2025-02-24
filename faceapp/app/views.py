@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseForbidden, JsonResponse, StreamingHttpResponse
 from .utils import *
 from .forms import ImageUploadForm,UserForm
@@ -6,6 +6,8 @@ from .models import *
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 @login_required
@@ -101,6 +103,13 @@ def gallery_view(request):
 def home(request):
     return render(request, 'home.html')
 
+
+def Delete_picture_view(request,image_id):
+    if request.method == 'POST':
+        image = get_object_or_404(FaceImage,id=image_id)
+        image.delete()
+        return JsonResponse({'success':True, 'redirect_url':'/gallery/'})
+    return JsonResponse({"error": "Invalid request"}, status=400)  
 
 
 

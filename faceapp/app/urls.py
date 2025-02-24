@@ -1,9 +1,9 @@
 from django.urls import path
 from .views import *
-from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
-    path('home/',home, name='home'),
+    path('',home, name='home'),
     path('upload/', upload_image, name='upload'),
     path('recognize/', recognize_page, name='recognize'),
     path('video-feed/', face_recognition_view, name='video_feed'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
     path('logout/', logoutview, name='logout'),
+    path('delete-image/<int:image_id>/', Delete_picture_view, name='delete-image'),
 ]
