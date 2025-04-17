@@ -23,6 +23,10 @@
         <form method="post">
             {% csrf_token %}
             <div class="mb-3">
+                <label class="form-label" for="{{ form.username.id_for_label }}">VUID</label>
+                {{ form.VUID }}
+            </div>
+            <div class="mb-3">
                 <label class="form-label" for="{{ form.username.id_for_label }}">Username</label>
                 {{ form.username }}
             </div>

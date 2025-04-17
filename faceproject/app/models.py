@@ -23,3 +23,4 @@ class FaceImage(models.Model):
     image = models.ImageField(upload_to='face_images/')
     embedding = models.BinaryField()
     created_at = models.DateTimeField(auto_now_add=True)
+

@@ -10,10 +10,11 @@ class UserForm(forms.ModelForm):
     # Define password fields manually since they're not part of the model fields
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    VUID = forms.CharField()
 
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2']
+        fields = ['username', 'password1', 'password2','VUID']
 
     def clean(self):
         cleaned_data = super().clean()
