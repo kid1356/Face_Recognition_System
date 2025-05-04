@@ -14,6 +14,9 @@ class Person(models.Model):
     class Meta:
         unique_together = ('admin', 'name')  # Prevent duplicate names per user
 
+    def __str__(self):
+        return self.name
+
 class FaceImage(models.Model):
     person = models.ForeignKey(
         Person,
@@ -23,4 +26,7 @@ class FaceImage(models.Model):
     image = models.ImageField(upload_to='face_images/')
     embedding = models.BinaryField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.person.name)
 

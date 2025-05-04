@@ -42,8 +42,6 @@ def face_recognition_view(request):
 
 @login_required
 def upload_image(request):
-    if not request.user.is_superuser:
-        return HttpResponseForbidden("Admin only")
     
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
@@ -107,7 +105,12 @@ def home(request):
 def Delete_picture_view(request,image_id):
     if request.method == 'POST':
         image = get_object_or_404(FaceImage,id=image_id)
+        person = image.person
         image.delete()
+
+        if not person.face_images.exists():
+            person.delete()
+
         return JsonResponse({'success':True, 'redirect_url':'/gallery/'})
     return JsonResponse({"error": "Invalid request"}, status=400)  
 
