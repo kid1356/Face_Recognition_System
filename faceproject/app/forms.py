@@ -8,8 +8,8 @@ class ImageUploadForm(forms.Form):
 
 class UserForm(forms.ModelForm):
     # Define password fields manually since they're not part of the model fields
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    password1 = forms.CharField(min_length=4,label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(min_length=4,label='Confirm Password', widget=forms.PasswordInput)
     VUID = forms.CharField()
 
     class Meta:

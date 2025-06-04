@@ -46,12 +46,15 @@ class FaceRecognizer:
             self.train_model()
 
     def detect_faces(self, image):
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        gray = cv2.equalizeHist(gray)
         rgb_img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         boxes, _ = self.mtcnn.detect(rgb_img)
         return boxes.astype(int) if boxes is not None else []
 
     def process_face(self, face_img):
         try:
+            face_img = cv2.cvtColor(face_img, cv2.COLOR_BGR2RGB)
             face_img = cv2.resize(face_img, (160, 160))
             face_tensor = torch.from_numpy(face_img).permute(2,0,1).float().to(self.device)
             face_tensor = (face_tensor - 127.5) / 128.0
@@ -110,6 +113,7 @@ class FaceRecognizer:
             self.cap = cv2.VideoCapture(0)
             self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
             self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+            self.cap.set(cv2.CAP_PROP_FPS, 30)
             if not self.cap.isOpened():
                 raise RuntimeError("Could not open video device")
 
